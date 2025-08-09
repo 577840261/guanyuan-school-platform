@@ -1,0 +1,406 @@
+#首页
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>固原校园综合信息平台</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#FF7D00',
+                        light: '#F5F7FA',
+                        dark: '#1D2129'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .badge-glow {
+                box-shadow: 0 0 8px theme('colors.secondary');
+            }
+            .card-hover {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-dark">
+    <!-- 顶部导航栏 -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!--  Logo和标题  -->
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                            <i class="fa fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold text-primary">固原校园</span>
+                    </a>
+                </div>
+                
+                <!--  中间导航 - 仅在中等以上屏幕显示  -->
+                <nav class="hidden md:flex items-center space-x-6">
+                    <button id="school-toggle" class="flex items-center space-x-1 bg-primary/10 px-3 py-2 rounded-full">
+                        <span id="current-school">本校</span>
+                        <i class="fa fa-chevron-down text-xs"></i>
+                    </button>
+                    <button id="all-toggle" class="px-3 py-2 rounded-full hover:bg-gray-100 transition-colors">
+                        全平台
+                    </button>
+                    <div class="relative">
+                        <input type="text" placeholder="搜索内容..." class="pl-10 pr-4 py-2 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/50 w-48 lg:w-64">
+                        <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </nav>
+                
+                <!--  右侧菜单  -->
+                <div class="flex items-center space-x-4">
+                    <button id="post-button" class="hidden sm:flex items-center space-x-1 bg-primary text-white px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
+                        <i class="fa fa-pencil"></i>
+                        <span>发布</span>
+                    </button>
+                    <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                    <div id="user-menu" class="hidden sm:block">
+                        <button class="flex items-center space-x-2">
+                            <img src="https://picsum.photos/id/237/40/40" alt="用户头像" class="w-8 h-8 rounded-full object-cover border-2 border-primary">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--  移动端菜单  -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex mb-3">
+                    <button class="flex-1 text-center py-2 bg-primary text-white rounded-l-lg">本校</button>
+                    <button class="flex-1 text-center py-2 bg-gray-100 rounded-r-lg">全平台</button>
+                </div>
+                <div class="relative mb-3">
+                    <input type="text" placeholder="搜索内容..." class="w-full pl-10 pr-4 py-2 rounded-full bg-gray-100 focus:outline-none">
+                    <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <button class="w-full flex items-center justify-center space-x-1 bg-primary text-white px-4 py-2 rounded-full">
+                    <i class="fa fa-pencil"></i>
+                    <span>发布内容</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!--  主内容区  -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <!--  轮播图  -->
+        <div class="relative rounded-xl overflow-hidden mb-6 h-[200px] sm:h-[300px]">
+            <div class="carousel relative h-full">
+                <!-- 轮播图1 -->
+                <div class="carousel-item absolute inset-0 opacity-100 transition-opacity duration-500">
+                    <img src="https://picsum.photos/id/1059/1200/300" alt="校园活动公告" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                        <div class="p-6 text-white">
+                            <h3 class="text-xl font-bold mb-1">校园头衔活动开始啦！</h3>
+                            <p class="text-sm text-gray-200">参与活动赢取限定头衔</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 轮播指示器 -->
+            <div class="absolute bottom-4 right-4 flex space-x-2">
+                <button class="w-2 h-2 rounded-full bg-white opacity-100"></button>
+                <button class="w-2 h-2 rounded-full bg-white opacity-50"></button>
+                <button class="w-2 h-2 rounded-full bg-white opacity-50"></button>
+            </div>
+        </div>
+        
+        <!--  快捷入口区  -->
+        <div class="grid grid-cols-4 gap-4 mb-8">
+            <a href="#" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm card-hover">
+                <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mb-2">
+                    <i class="fa fa-heart text-red-500 text-xl"></i>
+                </div>
+                <span class="text-sm">表白墙</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm card-hover">
+                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                    <i class="fa fa-search text-blue-500 text-xl"></i>
+                </div>
+                <span class="text-sm">寻物启事</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm card-hover">
+                <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                    <i class="fa fa-users text-green-500 text-xl"></i>
+                </div>
+                <span class="text-sm">交友平台</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm card-hover">
+                <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-2">
+                    <i class="fa fa-shopping-bag text-yellow-500 text-xl"></i>
+                </div>
+                <span class="text-sm">二手交易</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm card-hover">
+                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-2">
+                    <i class="fa fa-bullhorn text-purple-500 text-xl"></i>
+                </div>
+                <span class="text-sm">校园通知</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm card-hover">
+                <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mb-2">
+                    <i class="fa fa-comments text-pink-500 text-xl"></i>
+                </div>
+                <span class="text-sm">自由讨论</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm card-hover">
+                <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-2">
+                    <i class="fa fa-trophy text-gray-500 text-xl"></i>
+                </div>
+                <span class="text-sm">头衔体系</span>
+            </a>
+            <a href="#" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm card-hover">
+                <div class="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center mb-2">
+                    <i class="fa fa-cog text-teal-500 text-xl"></i>
+                </div>
+                <span class="text-sm">更多功能</span>
+            </a>
+        </div>
+        
+        <!--  信息流区域  -->
+        <div class="space-y-5">
+            <!--  内容卡片1 - 表白墙  -->
+            <article class="bg-white rounded-xl shadow-sm overflow-hidden card-hover">
+                <div class="p-5">
+                    <!--  发布者信息  -->
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/id/64/100/100" alt="用户头像" class="w-10 h-10 rounded-full object-cover">
+                        <div class="ml-3">
+                            <div class="flex items-center">
+                                <span class="font-medium">星辰大海</span>
+                                <span class="ml-2 px-2 py-0.5 bg-secondary/10 text-secondary text-xs rounded-full badge-glow">校园先锋</span>
+                            </div>
+                            <p class="text-xs text-gray-500">固原一中 · 高一 (3小时前)</p>
+                        </div>
+                    </div>
+                    
+                    <!--  内容主体  -->
+                    <div class="mb-4">
+                        <h3 class="text-lg font-semibold mb-2">表白高二(3)班的李明同学</h3>
+                        <p class="text-gray-700">每次看到你在篮球场上的身影都觉得特别帅气，希望有机会能和你成为朋友！</p>
+                    </div>
+                    
+                    <!--  互动按钮  -->
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-heart-o"></i>
+                            <span>24</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-comment-o"></i>
+                            <span>8</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-star-o"></i>
+                            <span>收藏</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-share-alt"></i>
+                            <span>分享</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+            
+            <!--  内容卡片2 - 寻物启事  -->
+            <article class="bg-white rounded-xl shadow-sm overflow-hidden card-hover">
+                <div class="p-5">
+                    <!--  发布者信息  -->
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/id/26/100/100" alt="用户头像" class="w-10 h-10 rounded-full object-cover">
+                        <div class="ml-3">
+                            <div class="flex items-center">
+                                <span class="font-medium">清风徐来</span>
+                                <span class="ml-2 px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">萌新活跃</span>
+                            </div>
+                            <p class="text-xs text-gray-500">五原中学 · 初二 (1天前)</p>
+                        </div>
+                    </div>
+                    
+                    <!--  内容主体  -->
+                    <div class="mb-4">
+                        <h3 class="text-lg font-semibold mb-2">寻物：黑色笔记本</h3>
+                        <p class="text-gray-700 mb-3">昨天下午在图书馆丢失一个黑色笔记本，里面有重要的课堂笔记，捡到的同学请联系我，必有重谢！</p>
+                        
+                        <!--  图片  -->
+                        <div class="grid grid-cols-2 gap-2">
+                            <img src="https://picsum.photos/id/24/300/300" alt="丢失的笔记本照片" class="rounded-lg w-full h-32 object-cover">
+                            <img src="https://picsum.photos/id/42/300/300" alt="笔记本内页示例" class="rounded-lg w-full h-32 object-cover">
+                        </div>
+                    </div>
+                    
+                    <!--  互动按钮  -->
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-heart-o"></i>
+                            <span>12</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-comment-o"></i>
+                            <span>3</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-star-o"></i>
+                            <span>收藏</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-share-alt"></i>
+                            <span>分享</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+            
+            <!--  内容卡片3 - 二手交易  -->
+            <article class="bg-white rounded-xl shadow-sm overflow-hidden card-hover">
+                <div class="p-5">
+                    <!--  发布者信息  -->
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/id/91/100/100" alt="用户头像" class="w-10 h-10 rounded-full object-cover">
+                        <div class="ml-3">
+                            <div class="flex items-center">
+                                <span class="font-medium">学霸君</span>
+                                <span class="ml-2 px-2 py-0.5 bg-green-500/10 text-green-500 text-xs rounded-full">优质创作者</span>
+                            </div>
+                            <p class="text-xs text-gray-500">宁师附中 · 高三 (2天前)</p>
+                        </div>
+                    </div>
+                    
+                    <!--  内容主体  -->
+                    <div class="mb-4">
+                        <h3 class="text-lg font-semibold mb-2">出售高一全套辅导资料</h3>
+                        <p class="text-gray-700 mb-3">本人刚毕业，出售高一全年辅导资料，几乎全新，包含各科练习册和笔记，打包价150元，可小刀。</p>
+                        
+                        <!--  图片  -->
+                        <div class="grid grid-cols-3 gap-2">
+                            <img src="https://picsum.photos/id/20/300/300" alt="辅导资料照片1" class="rounded-lg w-full h-24 object-cover">
+                            <img src="https://picsum.photos/id/21/300/300" alt="辅导资料照片2" class="rounded-lg w-full h-24 object-cover">
+                            <img src="https://picsum.photos/id/22/300/300" alt="辅导资料照片3" class="rounded-lg w-full h-24 object-cover">
+                        </div>
+                        
+                        <!--  价格标签  -->
+                        <div class="mt-3 inline-block px-3 py-1 bg-red-500 text-white text-sm rounded-full">
+                            ¥150
+                        </div>
+                    </div>
+                    
+                    <!--  互动按钮  -->
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-heart-o"></i>
+                            <span>36</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-comment-o"></i>
+                            <span>15</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-star-o"></i>
+                            <span>收藏</span>
+                        </button>
+                        <button class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                            <i class="fa fa-share-alt"></i>
+                            <span>分享</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+            
+            <!--  加载更多按钮  -->
+            <div class="text-center mt-8">
+                <button class="px-6 py-3 bg-white border border-gray-200 rounded-full hover:bg-gray-50 transition-colors">
+                    加载更多 <i class="fa fa-angle-down ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!--  底部信息  -->
+    <footer class="bg-gray-100 py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold text-primary mb-4">固原校园</h4>
+                    <p class="text-sm text-gray-600">专为固原地区初高中学生打造的综合信息平台，让校园生活更精彩。</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">快速链接</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary">首页</a></li>
+                        <li><a href="#" class="hover:text-primary">表白墙</a></li>
+                        <li><a href="#" class="hover:text-primary">寻物启事</a></li>
+                        <li><a href="#" class="hover:text-primary">二手交易</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">帮助中心</h5>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary">使用指南</a></li>
+                        <li><a href="#" class="hover:text-primary">头衔体系</a></li>
+                        <li><a href="#" class="hover:text-primary">常见问题</a></li>
+                        <li><a href="#" class="hover:text-primary">联系我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-4">关注我们</h5>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa fa-qq"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm text-gray-600">客服QQ：1822520752</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
+                <p>© 2025 固原校园综合信息平台 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!--  回到顶部按钮  -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <!--  引入JavaScript  -->
+    <script type="module" src="js/main.js"></script>
+
+
+</body></html>
