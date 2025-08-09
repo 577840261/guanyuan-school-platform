@@ -1,0 +1,12 @@
+{
+  "name": "guyuan-school-platform",
+  "version": "1.0.0",
+  "description": "固原校园综合信息平台",
+  "scripts": {
+    "build": "mkdir -p dist && cp -R *.html css/ js/ images/ admin/ dist/",
+    "minify": "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --use-short-doctype --minify-css true --minify-js true dist/*.html -o dist/*.html"
+  },
+  "devDependencies": {
+    "html-minifier": "^4.0.0"
+  }
+}

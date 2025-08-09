@@ -1,1 +1,190 @@
 #注册页
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 固原校园综合信息平台</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#FF7D00',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 顶部导航 -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                    <i class="fa fa-graduation-cap text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold text-primary">固原校园</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-8 md:py-16">
+        <div class="max-w-md mx-auto">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">加入固原校园</h1>
+                <p class="text-gray-500">注册账号，开启校园精彩生活</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                <form id="register-form">
+                    <!-- 用户名输入 -->
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" id="username" name="username" required 
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" 
+                                placeholder="设置你的用户名">
+                        </div>
+                    </div>
+                    
+                    <!-- 密码输入 -->
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="password" name="password" required 
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" 
+                                placeholder="设置密码（至少6位）">
+                        </div>
+                    </div>
+                    
+                    <!-- 确认密码 -->
+                    <div class="mb-4">
+                        <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">确认密码</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="confirm-password" name="confirm-password" required 
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" 
+                                placeholder="再次输入密码">
+                            <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600">
+                                <i class="fa fa-eye-slash"></i>
+                            </button>
+                        </div>
+                        <div id="password-match-message" class="mt-1 text-red-500 text-sm hidden">
+                            <i class="fa fa-exclamation-circle mr-1"></i>
+                            <span>两次输入的密码不一致</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 学校选择 -->
+                    <div class="mb-4">
+                        <label for="school" class="block text-sm font-medium text-gray-700 mb-1">学校</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa fa-building text-gray-400"></i>
+                            </div>
+                            <select id="school" name="school" required 
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors appearance-none bg-white">
+                                <option value="">请选择你的学校</option>
+                                <optgroup label="高中">
+                                    <option value="固原一中">固原一中</option>
+                                    <option value="固原二中">固原二中</option>
+                                    <option value="固原八中">固原八中</option>
+                                    <option value="固原五中">固原五中</option>
+                                    <option value="宁师附中">宁师附中</option>
+                                </optgroup>
+                                <optgroup label="初中">
+                                    <option value="五原中学">五原中学</option>
+                                    <option value="弘文中学">弘文中学</option>
+                                    <option value="固原三中">固原三中</option>
+                                    <option value="固原六中">固原六中</option>
+                                    <option value="固原七中">固原七中</option>
+                                    <option value="固原八中">固原八中</option>
+                                    <option value="固原五中">固原五中</option>
+                                    <option value="宁师附中">宁师附中</option>
+                                </optgroup>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <i class="fa fa-chevron-down text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 年级选择 -->
+                    <div class="mb-6">
+                        <label for="grade" class="block text-sm font-medium text-gray-700 mb-1">年级</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa fa-graduation-cap text-gray-400"></i>
+                            </div>
+                            <select id="grade" name="grade" required 
+                                class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors appearance-none bg-white">
+                                <option value="">请选择你的年级</option>
+                                <option value="初一">初一</option>
+                                <option value="初二">初二</option>
+                                <option value="初三">初三</option>
+                                <option value="高一">高一</option>
+                                <option value="高二">高二</option>
+                                <option value="高三">高三</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <i class="fa fa-chevron-down text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 注册按钮 -->
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium">
+                        注册账号
+                    </button>
+                    
+                    <!-- 错误提示 -->
+                    <div id="error-message" class="mt-4 text-red-500 text-sm hidden">
+                        <i class="fa fa-exclamation-circle mr-1"></i>
+                        <span id="error-message-text">注册失败，请重试</span>
+                    </div>
+                    
+                    <!-- 成功提示 -->
+                    <div id="success-message" class="mt-4 text-green-500 text-sm hidden">
+                        <i class="fa fa-check-circle mr-1"></i>
+                        <span>注册成功！即将跳转到登录页...</span>
+                    </div>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600">
+                        已有账号？ <a href="login.html" class="text-primary font-medium hover:underline">立即登录</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="mt-auto py-6 bg-white border-t">
+        <div class="container mx-auto px-4 text-center text-sm text-gray-500">
+            <p>© 2025 固原校园综合信息平台 版权所有</p>
+        </div>
+    </footer>
+
+    <!-- 引入JavaScript -->
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

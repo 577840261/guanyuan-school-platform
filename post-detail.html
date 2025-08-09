@@ -1,1 +1,286 @@
 #内容详情页
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内容详情 - 固原校园综合信息平台</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义颜色 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#FF7D00',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans text-dark">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- 返回按钮和标题 -->
+                <div class="flex items-center">
+                    <a href="index.html" class="mr-4 text-gray-600 hover:text-primary">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <span class="text-lg font-semibold">内容详情</span>
+                </div>
+                
+                <!-- 右侧菜单 -->
+                <div class="flex items-center space-x-4">
+                    <button id="share-button" class="text-gray-600 hover:text-primary">
+                        <i class="fa fa-share-alt"></i>
+                    </button>
+                    <button id="more-button" class="text-gray-600 hover:text-primary">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- 帖子内容 -->
+        <article class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+            <div class="p-5">
+                <!-- 发布者信息 -->
+                <div class="flex items-center mb-4">
+                    <img id="post-author-avatar" src="https://picsum.photos/id/64/100/100" alt="用户头像" class="w-10 h-10 rounded-full object-cover">
+                    <div class="ml-3">
+                        <div class="flex items-center">
+                            <span id="post-author-name" class="font-medium">星辰大海</span>
+                            <span id="post-author-badge" class="ml-2 px-2 py-0.5 bg-secondary/10 text-secondary text-xs rounded-full badge-glow">校园先锋</span>
+                        </div>
+                        <p id="post-author-school" class="text-xs text-gray-500">固原一中 · 高一 (3小时前)</p>
+                    </div>
+                </div>
+                
+                <!-- 内容主体 -->
+                <div class="mb-4">
+                    <h1 id="post-title" class="text-xl font-bold mb-3">表白高二(3)班的李明同学</h1>
+                    <p id="post-content" class="text-gray-700 mb-4">每次看到你在篮球场上的身影都觉得特别帅气，希望有机会能和你成为朋友！</p>
+                    
+                    <!-- 图片区域 -->
+                    <div id="post-images" class="grid grid-cols-2 gap-2 mb-4 hidden">
+                        <!-- 图片将动态加载 -->
+                    </div>
+                    
+                    <!-- 价格标签（仅二手交易显示） -->
+                    <div id="post-price" class="mt-3 inline-block px-3 py-1 bg-red-500 text-white text-sm rounded-full hidden">
+                        ¥150
+                    </div>
+                </div>
+                
+                <!-- 分类标签 -->
+                <div class="mb-4">
+                    <span id="post-category" class="inline-block px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
+                        表白墙
+                    </span>
+                </div>
+                
+                <!-- 互动按钮 -->
+                <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                    <button id="like-button" class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                        <i class="fa fa-heart-o"></i>
+                        <span id="like-count">24</span>
+                    </button>
+                    <button id="comment-button" class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                        <i class="fa fa-comment-o"></i>
+                        <span id="comment-count">8</span>
+                    </button>
+                    <button id="favorite-button" class="flex items-center space-x-1 text-gray-500 hover:text-primary transition-colors">
+                        <i class="fa fa-star-o"></i>
+                        <span>收藏</span>
+                    </button>
+                    <button id="report-button" class="flex items-center space-x-1 text-gray-500 hover:text-red-500 transition-colors">
+                        <i class="fa fa-flag-o"></i>
+                        <span>举报</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+        
+        <!-- 评论区 -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+            <div class="p-5">
+                <h3 class="text-lg font-semibold mb-4">评论 (8)</h3>
+                
+                <!-- 评论输入框 -->
+                <div class="flex mb-6">
+                    <img id="current-user-avatar" src="https://picsum.photos/id/237/40/40" alt="你的头像" class="w-10 h-10 rounded-full object-cover">
+                    <div class="ml-3 flex-1">
+                        <textarea id="comment-input" placeholder="写下你的评论..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none" rows="2"></textarea>
+                        <div class="flex justify-end mt-2">
+                            <button id="submit-comment" class="px-4 py-1 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm">
+                                发表评论
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 评论列表 -->
+                <div id="comments-list" class="space-y-4">
+                    <!-- 评论将动态加载 -->
+                    <div class="flex comment-item">
+                        <img src="https://picsum.photos/id/26/100/100" alt="评论者头像" class="w-8 h-8 rounded-full object-cover">
+                        <div class="ml-3 flex-1">
+                            <div class="bg-gray-50 p-3 rounded-lg">
+                                <div class="flex items-center mb-1">
+                                    <span class="font-medium text-sm">清风徐来</span>
+                                    <span class="ml-2 px-1.5 py-0.5 bg-primary/10 text-primary text-xs rounded-full">萌新活跃</span>
+                                </div>
+                                <p class="text-gray-700 text-sm">我也觉得他很帅！</p>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">2小时前</p>
+                            <div class="flex items-center mt-1 space-x-4">
+                                <button class="text-xs text-gray-500 hover:text-primary">
+                                    <i class="fa fa-heart-o mr-1"></i> 5
+                                </button>
+                                <button class="text-xs text-gray-500 hover:text-primary">
+                                    <i class="fa fa-reply mr-1"></i> 回复
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 加载更多评论 -->
+                <div class="text-center mt-6">
+                    <button id="load-more-comments" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                        加载更多评论
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 相关内容推荐 -->
+        <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-4">相关推荐</h3>
+            <div class="flex overflow-x-auto space-x-4 pb-2">
+                <!-- 相关内容将动态加载 -->
+                <a href="#" class="flex-shrink-0 w-64 bg-white rounded-xl shadow-sm overflow-hidden card-hover">
+                    <div class="h-36 overflow-hidden">
+                        <img src="https://picsum.photos/id/1062/300/200" alt="相关内容图片" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-3">
+                        <h4 class="font-medium text-sm line-clamp-2">这是一条相关的表白内容标题，可能会有点长</h4>
+                        <p class="text-xs text-gray-500 mt-1">3小时前</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 分享模态框 -->
+    <div id="share-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-gray-800">分享内容</h3>
+                <button id="close-share" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <a href="#" class="flex flex-col items-center justify-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                        <i class="fa fa-weixin text-green-500"></i>
+                    </div>
+                    <span class="text-xs">微信</span>
+                </a>
+                <a href="#" class="flex flex-col items-center justify-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                        <i class="fa fa-qq text-blue-500"></i>
+                    </div>
+                    <span class="text-xs">QQ</span>
+                </a>
+                <a href="#" class="flex flex-col items-center justify-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-2">
+                        <i class="fa fa-weibo text-red-500"></i>
+                    </div>
+                    <span class="text-xs">微博</span>
+                </a>
+                <a href="#" class="flex flex-col items-center justify-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
+                        <i class="fa fa-link text-gray-500"></i>
+                    </div>
+                    <span class="text-xs">复制链接</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 举报模态框 -->
+    <div id="report-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-semibold text-gray-800">举报内容</h3>
+                <button id="close-report" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">请选择举报原因（可多选）</p>
+            <div class="space-y-2 mb-6">
+                <label class="flex items-center">
+                    <input type="checkbox" name="report-reason" value="垃圾广告" class="mr-2">
+                    <span class="text-sm">垃圾广告</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" name="report-reason" value="色情低俗" class="mr-2">
+                    <span class="text-sm">色情低俗</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" name="report-reason" value="暴力违法" class="mr-2">
+                    <span class="text-sm">暴力违法</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" name="report-reason" value="人身攻击" class="mr-2">
+                    <span class="text-sm">人身攻击</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" name="report-reason" value="虚假信息" class="mr-2">
+                    <span class="text-sm">虚假信息</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" name="report-reason" value="其他原因" class="mr-2">
+                    <span class="text-sm">其他原因</span>
+                </label>
+            </div>
+            <textarea placeholder="请补充说明（可选）" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none text-sm" rows="2" id="report-description"></textarea>
+            <div class="flex justify-end mt-4">
+                <button id="submit-report" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm">
+                    提交举报
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成功提示模态框 -->
+    <div id="success-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-sm p-6 text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa fa-check text-2xl text-green-500"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2" id="success-title">操作成功</h3>
+            <p class="text-gray-600 mb-6" id="success-message">你的操作已成功提交</p>
+            <button id="close-success" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                确定
+            </button>
+        </div>
+    </div>
+
+    <!-- 引入JavaScript -->
+    <script type="module" src="js/post-detail.js"></script>
+</body>
+</html>
